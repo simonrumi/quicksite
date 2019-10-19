@@ -1,43 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="description" content="Web site created using create-react-app" />
+		<link rel="apple-touch-icon" href="logo192.png" />
+		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+		<title>Quick Site</title>
+		<style>
+			#yogi-quote {
+				margin: 10vh auto;
+			}
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+			.quicksite-centered {
+				text-align: center;
+				position: relative;
+				margin: 25vh auto;
+			}
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+			.quicksite-hidden {
+				display: none;
+			}
+
+			.quicksite-relative {
+				position: relative;
+			}
+
+			.quicksite-font {
+				font-family: monospace;
+				font-size: 2em;
+			}
+
+			.quicksite-button {
+				color: #000;
+				text-decoration: none;
+				background: #69c9b1;
+				padding: 1em;
+				border-radius: 1em;
+				display: inline-block;
+				border: none;
+				transition: all 0.4s ease 0s;
+				font-family: monospace;
+				font-size: 1em;
+			}
+
+			.quicksite-disappear {
+				background-color: rgba(255, 255, 255, 0);
+				color: rgba(255, 255, 255, 0);
+				transition: all 0.4s ease 0s;
+			}
+
+			.quicksite-time-message {
+				background-color: #282c34;
+				text-align: center;
+			}
+
+			.quicksite-time-message > p {
+				margin: 0;
+				padding: 2em 0 0;
+				color: #09d3ac;
+			}
+
+			.quicksite-time-message > p > span {
+				color: white;
+			}
+		</style>
+		<script>
+			// some mild misdirection to entertain while the real site is loading
+			// all the scripts, data and css are right here...no need for calls to get any other file
+			const startTime = new Date();
+			const YOGI_DIV_ID = 'yogi-div';
+			const getYogi = () => {
+				const yogiQuotes = [
+					"Half the lies they tell about me aren't true.",
+					"You wouldn't have won if we'd beaten you.",
+					"You better cut the pizza in four pieces because I'm not hungry enough to eat six.",
+					"A nickel ain't worth a dime anymore.",
+					'I never said most of the things I said.',
+					'I always thought that record would stand until it was broken.',
+					'Baseball is ninety percent mental and the other half is physical.',
+					"You got to be careful if you don't know where you're going, because you might not get there.",
+					"It ain't the heat, it's the humility.",
+					'How can you think and hit at the same time?',
+					'I just want to thank everyone who made this day necessary.',
+					"Nobody goes there anymore. It's too crowded.",
+					"So I'm ugly. So what? I never saw anyone hit with his face.",
+					'When you arrive at a fork in the road, take it.',
+					'You can observe a lot by just watching.',
+					"You should always go to other people's funerals, otherwise, they won't come to yours.",
+					'The other teams could make trouble for us if they win.',
+					'Little League baseball is a very good thing because it keeps the parents off the streets.',
+					'It gets late early out there.',
+					"It's pretty far, but it doesn't seem like it.",
+					"I'm not going to buy my kids an encyclopedia. Let them walk to school like I did.",
+					'The towels were so thick there I could hardly close my suitcase.',
+					'We made too many wrong mistakes.',
+					"I wish I had an answer to that because I'm tired of answering that question.",
+					'It was impossible to get a conversation going, everybody was talking too much.',
+					"It's like deja-vu, all over again.",
+					"If people don't want to come out to the ball park, nobody's gonna stop 'em.",
+					'Even Napoleon had his Watergate.',
+					"If the world was perfect, it wouldn't be.",
+					"The future ain't what it used to be.",
+				];
+				return yogiQuotes[Math.floor(Math.random() * yogiQuotes.length)];
+			};
+
+			const onTellMeClick = event => {
+				showEl(YOGI_DIV_ID);
+				showEl('yogi-finished');
+				event.target.classList.add('quicksite-disappear');
+			};
+
+			onGotItClick = () => {
+				showEl('root');
+				const yogiContainer = document.getElementById('yogi-container');
+				yogiContainer.classList.add('quicksite-hidden');
+
+				const now = new Date();
+				const timeElapsed = (now - startTime) / 1000; //in seconds
+				const timestamp = document.getElementById('timestamp');
+				timestamp.innerHTML = timeElapsed;
+				showEl('time-message');
+			};
+
+			const showEl = elementId => {
+				const elem = document.getElementById(elementId);
+				elem.classList.remove('quicksite-hidden');
+			};
+		</script>
+	</head>
+	<body>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+
+		<div id="yogi-container" class="quicksite-centered quicksite-relative">
+			<div align="center">
+				<a class="quicksite-button" onclick="onTellMeClick(event)">Tell it to me, Yogi... </a>
+			</div>
+			<div id="yogi-quote" class="quicksite-relative"></div>
+			<div id="yogi-finished" class="quicksite-hidden">
+				<a class="quicksite-button" onclick="onGotItClick()">Got it, Mr. Berra</a>
+			</div>
+		</div>
+
+		<div id="time-message" class="quicksite-hidden quicksite-time-message">
+			<p>You used up <span id="timestamp"></span> seconds talking with Yogi Berra, while the App loaded</p>
+		</div>
+
+		<script>
+			const yogiDiv = document.createElement('div');
+			yogiDiv.setAttribute('id', YOGI_DIV_ID);
+			yogiDiv.classList.add('quicksite-hidden', 'quicksite-font');
+			yogiDiv.innerHTML = getYogi();
+			const yogiQuote = document.getElementById('yogi-quote');
+			yogiQuote.appendChild(yogiDiv);
+		</script>
+
+		<!-- App goes here -->
+		<div class="quicksite-hidden" id="root"></div>
+	</body>
 </html>
