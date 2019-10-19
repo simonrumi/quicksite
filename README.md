@@ -6,8 +6,6 @@ heavy React App.
 
 The intention here is to demonstrate the creative concept, not really to show the technical setup.
 
-Here is all the usual Create-React-App info:
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
